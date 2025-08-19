@@ -1,0 +1,922 @@
+/* === ¡LA REGLA DE ORO! Previene problemas de ancho y padding === */
+/* ============================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ===================================================== */
+/* === Previene el desbordamiento horizontal global === */
+/* ===================================================== */
+html,
+body {
+  overflow-x: hidden;
+}
+
+
+.fondo-header {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    position: fixed; /* Hace que el header sea "pegajoso" */
+    width: 100%; /* Asegura que ocupe todo el ancho */
+    background: rgb(58, 121, 255); /* Fondo sólido */
+    z-index: 1000; 
+    top: 0;       /* Le dice que se "pegue" en la parte superior (0px desde arriba) */
+    left: 0;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* --- ESTADO AL HACER SCROLL (CUANDO SE AÑADE LA CLASE 'header-scrolled') --- */
+.fondo-header.header-scrolled {
+    /* Fondo semitransparente con un ligero desenfoque */
+    background-color: transparent; /* Fondo blanco con 80% de opacidad */
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none; /* Soporte para Safari */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Mantenemos una sombra más sutil para que no desaparezca del todo */
+}
+
+.encabezado {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;   
+    padding: 0.8rem 19%;
+    margin: 0 auto;
+    max-width: 1800px; /* Máximo ancho del contenido */
+    gap: 2rem;
+}
+
+.encabezado a {
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: 300;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: color 0.4s ease;
+    
+}
+
+.encabezado a:hover {
+    color: #d1e3ff; /* Un azul muy claro para destacar sobre el fondo azul */
+}
+
+.fondo-header.header-scrolled .encabezado a {
+    color: black; /* Fondo blanco con 80% de opacidad */
+}
+
+.fondo-header.header-scrolled .encabezado a:hover {
+    color: #1146d8; /* El color azul fuerte al hacer hover */
+}
+
+/* Esta regla es muy específica y anulará tanto el color blanco como el negro */
+.fondo-header .encabezado a.activo {
+    color: #1146d8;      /* Siempre será azul fuerte si está activo */
+    font-weight: 500;
+}
+
+
+
+/* Logo */
+.logo-container {
+    margin-right: auto; /* Mantiene su posición a la izquierda */
+    
+}
+
+.logo-link {
+  display: flex;         /* ¡La clave! Activa Flexbox para alinear los elementos horizontalmente. */
+  align-items: center;   /* Centra verticalmente la imagen y el texto. */
+  text-decoration: none; /* Quita el subrayado del enlace. */
+  gap: 1.3rem;           /* Crea un espacio entre el logo y el texto. */
+}
+
+.logo-img {
+    width: 3.5rem;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+
+.logo-text {
+  font-size: 1.5rem; /* Tamaño de fuente para el texto, ajústalo a tu gusto */
+  font-weight: 700;  /* Texto en negrita */
+  color: #333;      /* Color del texto, puedes cambiarlo */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* O la fuente que prefieras */
+}
+
+/* === ESTILOS PARA MENÚ HAMBURGUESA Y DESPLEGABLE (FINAL) === */
+/* ========================================================= */
+
+/* --- Contenedor del Botón Hamburguesa --- */
+.menu-hamburguesa {
+  display: none; /* Oculto por defecto en escritorio */
+  position: relative; /* Necesario para posicionar el dropdown si usamos position:absolute */
+}
+
+/* --- Botón Hamburguesa (el icono ☰) --- */
+.menu-hamburguesa button {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: white; /* Color inicial de las 3 líneas */
+  line-height: 1; /* Mejora el alineamiento vertical */
+  transition: color 0.4s ease; /* Transición suave para el cambio de color */
+}
+
+/* --- Menú Desplegable --- */
+.dropdown-menu {
+  display: none; /* Oculto hasta que se añade la clase .show */ 
+  position: fixed; /* Posicionamiento: se pega debajo del header */
+  top: 82px; /* Empieza justo donde termina el header */
+  left: 0;
+  right: 0; /* Ocupa todo el ancho del header */
+  width: 100%;
+  background: #f8f9fa; /* Fondo gris claro, más neutral */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+  z-index: 999;
+
+  border-bottom-left-radius: 8px; /* Altura automática y bordes redondeados solo abajo */
+  border-bottom-right-radius: 8px;
+}
+
+/* Clase que se añade con JavaScript para mostrar el menú */
+.dropdown-menu.show {
+  display: block;
+  animation: fadeInDown 0.3s ease-out;
+}
+
+/* Animación de entrada */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Lista de Opciones del Menú --- */
+.dropdown-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0; /* Espacio vertical interno */
+}
+
+/* --- Cada Opción del Menú --- */
+.dropdown-menu li a {
+  display: block;
+  padding: 0.8rem 1.5rem;
+  color: #333;
+  text-decoration: none;
+  font-size: 1rem;
+  border-bottom: none; /* Quitamos las líneas divisorias */
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Efecto al pasar el ratón */
+.dropdown-menu li a:hover {
+  background-color: #e9ecef;
+  color: #1146d8;
+}
+
+/* Estilo para la opción de menú activa */
+.dropdown-menu li a.activo {
+  color: #1146d8;
+  font-weight: 500;
+}
+
+
+/* Media Query para móvil */
+@media (max-width: 800px) {
+
+  /* Ocultamos los links del menú de escritorio */
+  .menu-item {
+    display: none !important;
+  }
+  
+  /* Mostramos el botón de hamburguesa y el logo */
+  .menu-hamburguesa,
+  .logo-container { /* Aseguramos que el logo también sea visible */
+    display: flex; /* O 'block', dependiendo de tu estructura */
+  }
+
+  /* Ajustamos el layout del header para móvil */
+  .encabezado {
+    justify-content: space-between; /* Logo a la izquierda, hamburguesa a la derecha */
+    padding: 0.8rem 1rem;
+  }
+
+  /* Opcional: ocultamos el texto del logo si ocupa mucho espacio */
+  .logo-text {
+    display: none;
+  }
+  
+  /* Adaptamos el color del icono de la hamburguesa al hacer scroll */
+  .fondo-header.header-scrolled .menu-hamburguesa button {
+      color: black;
+  }
+}
+
+/*-----------TIULO DE SERVICIOS-----------*/
+.titulo-servicios {
+  font-family: 'Georgia', 'Times New Roman', serif; /* Una fuente serif como en la imagen */
+  font-size: clamp(2rem, 5vw, 2.8rem); /* Tamaño de fuente adaptable */
+  text-align: center;
+  margin-top: 4rem;
+  margin-bottom: 3rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.titulo-servicios p {
+  position: relative;
+  display: inline-block; /* Asegura que el after se posicione correctamente */
+  padding-bottom: 15px;
+}
+
+.titulo-servicios p::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background-color: #1146d8; /* Un rojo similar al de la imagen */
+}
+
+/*----------------------TITULO DE INICIO DE PAGINA---------------------------*/
+
+.text-inicio{
+  font-family: 'Rockwell', 'Roboto Slab', 'Georgia', serif; /* Una fuente serif como en la imagen */
+  font-size: clamp(2.5rem, 5vw, 2.8rem); /* Tamaño de fuente adaptable */
+  font-weight: 900;        /*GROSOR: '900' es "black" o "extra-bold", lo que le da ese aspecto robusto. */
+  line-height: 1.2;       /*ALTURA DE LÍNEA: Reducimos un poco el espacio entre líneas para que se vea más compacto. */
+  text-align: left;
+  color: #333;
+  max-width: 15ch;  /* 'ch' es una unidad relativa al ancho del carácter '0'. Es ideal para controlar longitudes de línea. */
+  margin-left: auto;  /* En móvil, queremos que el bloque de texto se centre dentro de la columna */
+  margin-right: auto; 
+}
+
+/* En pantallas grandes, alineamos el bloque de texto a la izquierda de su columna */
+@media (min-width: 992px) {
+  .text-inicio {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.img-inicio img{
+  box-shadow: 8px 5px 2px rgba(0, 0, 0, 0.1), 8px 5px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 2rem;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-facebook {
+  background-color: #3b5998;
+  color: white;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: 1rem;
+  transition: all 0.6s ease;
+}
+
+.btn-instagram {
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  color: white;
+  font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: 1rem;
+  transition: all 1s ease;
+}
+
+.btn-facebook:hover,
+.btn-instagram:hover {
+  opacity: 0.9;
+  text-decoration: none;
+  background: #ffffff;
+  border: 1px solid black;
+}
+
+/*-------------Servicios--------*/
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+  align-items: stretch; /* 🔑 fuerza misma altura */
+}
+
+@media (max-width: 900px) {
+  .card-grid {
+    max-width: 620px;
+  }
+}
+
+@media (max-width: 600px) {
+  .card-grid {
+    max-width: 300px;
+  }
+}
+
+.servicios {
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 🔑 reparte el contenido */
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
+  height: 100%; /* 🔑 ocupa toda la altura disponible */
+  min-height: 230px; /* puedes ajustar */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.servicios:hover {
+  transform: translateY(-5px);
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.titulo-service {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #575555;
+  padding-top: 1rem;
+  transition: color 0.3s ease;
+}
+
+.servicios:hover .titulo-service {
+  color: #1146d8;
+}
+
+.text-service {
+  padding-top: 1rem;
+  color: rgba(147, 149, 150, 0.856);
+  word-wrap: break-word;
+
+  /* Opcional: limitar líneas visibles para evitar que una card sea más alta */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+/* --- TÍTULO PRINCIPAL DE LA SECCIÓN --- */
+
+.titulo-cuidados {
+  font-family: 'Georgia', 'Times New Roman', serif; /* Define una fuente elegante y clásica para el título. */
+  font-size: clamp(2rem, 5vw, 2.8rem);             /* Hace que el tamaño de la fuente sea adaptable: mínimo 2rem, máximo 2.8rem, y escala con el ancho de la pantalla (5vw). */
+  text-align: center;                             /* Centra el texto del título horizontalmente. */
+  margin-top: 4rem;                           /* Añade un espacio de 4rem (aproximadamente 64px) por encima del título. */
+  margin-bottom: 3rem;                        /* Añade un espacio de 3rem (aproximadamente 48px) por debajo del título. */
+  font-weight: 700;                           /* Define el grosor de la fuente como "bold" (negrita). */
+  color: #333;                              /* Establece el color del texto a un gris oscuro. */
+}
+
+/* --- LÍNEA DEBAJO DEL TÍTULO --- */
+
+/* Selecciona el párrafo <p> dentro de .titulo-cuidados para poder posicionar la línea. */
+.titulo-cuidados p {
+  position: relative;       /* Permite posicionar elementos hijos (como ::after) en relación a este párrafo. */
+  display: inline-block;    /* Hace que el elemento se comporte como un bloque, pero solo ocupe el ancho de su contenido. */
+  padding-bottom: 15px;     /* Crea un espacio debajo del texto del título para que la línea no quede pegada. */
+}
+
+/* Crea un pseudo-elemento ::after para generar la línea azul sin añadir HTML extra. */
+.titulo-cuidados p::after {
+  content: '';                      /* Obligatorio para que el pseudo-elemento se muestre. */
+  position: absolute;               /* Posiciona la línea en relación al párrafo <p>. */
+  bottom: 0;                        /* Coloca la línea en la parte inferior del espacio creado por padding-bottom. */
+  left: 50%;                        /* Mueve el inicio de la línea al centro horizontal del párrafo. */
+  transform: translateX(-50%);      /* Desplaza la línea hacia la izquierda un 50% de su propio ancho, centr ееla perfectamente. */
+  width: 60px;                      /* Define el ancho de la línea. */
+  height: 2px;                      /* Define el grosor de la línea. */
+  background-color: #1146d8;      /* Establece el color de la línea a azul. */
+}
+
+/* --- CONTENEDOR DE TARJETAS Y IMAGEN --- */
+
+.cuidados-container {
+  max-width: 1200px;      /* Limita el ancho máximo del contenedor para que no se estire demasiado en pantallas grandes. */
+}
+
+
+/* -------- ESTILO BASE PARA CADA TARJETA -------- */
+.cuidado-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex; /* Activa Flexbox para alinear el icono y el texto */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+  min-height: 110px;
+  border: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* --- EFECTO HOVER PARA LA TARJETA --- */
+.cuidado-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* --- ICONO CIRCULAR --- */
+.cuidado-card-icon {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #1146d8;
+  border-radius: 50%;
+  flex-shrink: 0; /* Evita que el icono se encoja */
+}
+
+/* --- CONTENIDO DE TEXTO (TÍTULO Y PÁRRAFO) --- */
+.cuidado-card-content {
+  flex-grow: 1;
+}
+
+.cuidado-card-title {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #2c3e50;
+  margin-bottom: 0.3rem;
+  transition: color 0.3s ease;
+}
+
+.cuidado-card:hover .cuidado-card-title {
+  color: #1146d8;
+}
+
+.cuidado-card-text {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ========================================================= */
+/* === LAYOUT PARA PANTALLAS GRANDES (ESCRITORIO) >= 768px === */
+/* ========================================================= */
+@media (min-width: 768px) {
+  
+  /* Estilos comunes para todas las tarjetas en escritorio */
+  .cuidado-card {
+    align-items: flex-start; /* Centra verticalmente para un look limpio */
+    gap: 1rem;
+  }
+  
+  /* --- TARJETAS DE LA IZQUIERDA --- */
+  .card-left {
+    /* Mantenemos la dirección normal. Como el icono está al final en tu JSX, aparecerá a la derecha. */
+    flex-direction: row; 
+    text-align: left;
+  }
+
+  /* --- TARJETAS DE LA DERECHA --- */
+  .card-right {
+    /* Mantenemos la dirección normal. Como el icono está al principio en tu JSX, aparecerá a la izquierda. */
+    flex-direction: row;
+    text-align: left;
+  }
+}
+
+/* ========================================================= */
+/* === LAYOUT PARA PANTALLAS PEQUEÑAS (MÓVIL) < 768px === */
+/* ========================================================= */
+@media (max-width: 768px) {
+
+  /* Estilos comunes para todas las tarjetas en móvil */
+  .cuidado-card {
+    flex-direction: column; /* Apila los elementos verticalmente */
+    align-items: center;   /* Centra todo horizontalmente */
+    text-align: center;      /* Centra el texto */
+    gap: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 350px;
+  }
+
+  /* --- REORDENAMIENTO PARA MÓVIL --- */
+  /* Para las tarjetas de la izquierda, donde el icono está al final en el HTML, */
+  /* lo movemos al principio visualmente. */
+  .card-left .cuidado-card-icon {
+    order: -1; 
+  }
+  
+  /* Para las de la derecha, el icono ya es el primer elemento en el HTML, */
+  /* por lo que ya aparecerá arriba por defecto. No necesita una regla de 'order'. */
+}
+/*---------------------------FONDO OSCURO Y BORROSO QUE CUBRE TODA LA PANTALLA----------------------- */
+
+.image-modal-overlay {
+  position: fixed; /* Lo fija en la pantalla, incluso si se hace scroll */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo negro semitransparente */
+  
+  /* Efecto de desenfoque (backdrop-filter) para el fondo */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px); /* Soporte para Safari */
+  
+  display: flex; /* Usamos flexbox para centrar fácilmente el contenido */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  z-index: 1050; /* Asegura que esté por encima de todo lo demás */
+  
+  /* Animación de entrada */
+  animation: fadeIn 0.3s ease;
+}
+
+/* El contenedor de la imagen ampliada */
+.image-modal-content {
+  position: relative; /* Para posicionar el botón de cierre */
+  max-width: 80vw; /* La imagen no ocupará más del 80% del ancho de la pantalla */
+  max-height: 80vh; /* La imagen no ocupará más del 80% del alto de la pantalla */
+  
+  /* Animación de zoom de entrada */
+  animation: zoomIn 0.3s ease;
+}
+
+/* La imagen dentro del modal */
+.image-modal-content img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Asegura que toda la imagen sea visible sin deformarse */
+  border-radius: 8px; /* Pequeño redondeo en las esquinas */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  background-color: white;
+}
+
+/* El botón para cerrar (la 'X') */
+.close-modal-button {
+  position: absolute; /* Lo posiciona en relación a .image-modal-content */
+  top: -15px; /* Un poco por encima de la esquina de la imagen */
+  right: -15px; /* Un poco a la derecha de la esquina de la imagen */
+  background-color: white;
+  color: #333;
+  border: none;
+  border-radius: 50%; /* Lo hace redondo */
+  width: 35px;
+  height: 35px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.close-modal-button:hover {
+  transform: scale(1.1);
+  background-color: #f0f0f0;
+}
+
+
+/* --- Animaciones --- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+
+/* === ESTILOS ADAPTADOS PARA LA SECCIÓN DE PRECIOS === */
+
+.titulo-precios {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  text-align: center;
+  margin-top: 4rem;
+  margin-bottom: 3rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.titulo-precios p {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 15px;
+}
+
+/* La línea roja debajo del título */
+.titulo-precios p::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background-color: #1146d8; 
+}
+
+/* --- Cuadrícula para las tarjetas --- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); /* ¡ESTO ES CLAVE! */
+  gap: 1.5rem; /* Un poco menos de espacio */
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1rem; /* Añadimos un poco de padding lateral al contenedor */
+}
+
+/* --- Estilo de cada Tarjeta de Precio --- */
+.price-card {
+  background-color: #ffffff;
+  border: 1px solid #f2f2f2;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.07);
+  border-radius: 1rem; /* Un poco menos redondeado */
+  /* Padding adaptable con clamp() */
+  padding: clamp(1.5rem, 4vw, 2.5rem); 
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.price-card:hover{
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* ... tu :hover se mantiene igual ... */
+
+/* --- Icono Circular --- */
+.price-card-icon-circle {
+  /* Hacemos el icono un poco más pequeño */
+  width: 80px;
+  height: 80px;
+  background-color: #f5f5f7;
+  border-radius: 50%;
+  margin: 0 auto 1.5rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.price-card-icon-inner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #1146d8;
+  border-radius: 50%;
+}
+
+/* --- Precio --- */
+.price-tag {
+  /* Tamaño de fuente adaptable */
+  font-size: clamp(1.5rem, 4vw, 1.75rem); 
+  font-weight: 700;
+  color: #1146d8; 
+  margin-bottom: 0.5rem;
+}
+
+/* --- Título del Servicio --- */
+.price-card-title {
+  /* Tamaño de fuente adaptable */
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem); 
+  font-weight: 900;
+  color: #34495e;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+}
+
+/* --- Lista de Características --- */
+.price-card-features p {
+  color: #95a5a6;
+  /* Tamaño de fuente adaptable */
+  font-size: clamp(0.85rem, 2vw, 0.95rem); 
+  line-height: 1.6;
+  margin-bottom: 0.4rem;
+}
+
+
+/* === ESTILOS PARA LA SECCIÓN DE CONTACTO === */
+.contact-section {
+  padding: 4rem 0;
+  background-color: #f8f9fa; /* Un fondo gris muy claro */
+}
+
+/* Reutilizamos la clase .section-title si ya la tienes, si no, aquí está */
+.section-title {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-title p {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 700;
+  color: #333;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 15px;
+}
+
+.section-title p::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background-color: #1146d8; /* Color rojo */
+}
+
+/* --- Formulario de Contacto --- */
+.contact-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.contact-form .form-control {
+  border-radius: 8px;
+  box-shadow: none;
+  border: 1px solid #e9ecef;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  background-color: #fff;
+}
+
+.contact-form .form-control:focus {
+  border-color: #1146d8;
+  box-shadow: 0 0 0 0.2rem rgba(60, 128, 231, 0.25);
+}
+
+.contact-form textarea.form-control {
+  height: auto; /* Permite que el textarea se ajuste */
+}
+
+.contact-form button[type="submit"] {
+  background: #1146d8;
+  border: 0;
+  padding: 0.8rem 2rem;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 50px; /* Bordes totalmente redondeados */
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.contact-form button[type="submit"]:hover {
+  background: #1146d8; /* Un rojo más oscuro al hacer hover */
+  transform: translateY(-3px);
+}
+
+/* --- Contenedor del Mapa --- */
+.map-container {
+  width: 100%;
+  height: 380px; /* Altura del mapa */
+  border-radius: 10px;
+  overflow: hidden; /* Asegura que el iframe no se salga de los bordes redondeados */
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Ajustes Responsivos --- */
+@media (max-width: 991.98px) {
+  .map-container {
+    margin-top: 2rem; /* Añade espacio entre el formulario y el mapa en vista de tablet/móvil */
+  }
+}
+
+
+/* === ESTILOS PARA EL FOOTER (PIE DE PÁGINA) === */
+/* ================================================= */
+
+.site-footer {
+  background-color: #ffffff;
+  padding-top: 4rem;
+  font-size: 0.9rem;
+  color: #888888;
+}
+
+.footer-widget {
+  margin-bottom: 2rem;
+}
+
+.footer-logo {
+  max-width: 150px; /* Ajusta el tamaño de tu logo */
+  margin-bottom: 1.5rem;
+}
+
+.footer-description {
+  line-height: 1.7;
+}
+
+.footer-widget-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+/* --- Lista de Contacto --- */
+.footer-contact-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.footer-contact-list li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.footer-contact-list i {
+  margin-right: 15px;
+  font-size: 1.1rem;
+  width: 20px; /* Ancho fijo para alinear el texto */
+  text-align: center;
+}
+
+
+
+/* === ESTILOS PARA ICONOS SOCIALES (REACT ICONS) === */
+.footer-social-icons {
+  margin-top: 1.5rem;
+  display: flex; /* Alinea los iconos horizontalmente */
+  gap: 0.75rem; /* Espacio entre los iconos */
+}
+
+/* Estilo para el enlace que contiene el icono */
+.footer-social-icons .social-icon-link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  
+  width: 38px; /* Tamaño del círculo */
+  height: 38px;
+  
+  border: 1px solid #e0e0e0; /* Borde inicial */
+  border-radius: 50%; /* Lo hace un círculo */
+  
+  color: #888888; /* Color inicial del icono */
+  background-color: transparent; /* Fondo inicial transparente */
+  
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+/* Estilo para el icono SVG dentro del enlace */
+.footer-social-icons .social-icon-link svg {
+  font-size: 1.2rem; /* Tamaño del icono SVG */
+}
+
+
+/* --- Colores de Marca Específicos al Hacer Hover --- */
+
+/* Hover general para todos los iconos */
+.footer-social-icons .social-icon-link:hover {
+  color: #ffffff; /* El icono se vuelve blanco */
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+
+}
+
+/* Color específico para Facebook al hacer hover */
+.footer-social-icons a[href*="facebook.com"]:hover {
+  background-color: #1877F2;
+  border-color: #1877F2;
+}
+
+/* Color específico para Instagram al hacer hover */
+.footer-social-icons a[href*="instagram.com"]:hover {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+  border-color: transparent;
+}
+
+/* --- Barra de Copyright --- */
+.footer-bottom {
+  border-top: 1px solid #eeeeee;
+  padding: 1.5rem 0;
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.footer-bottom p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #aaaaaa;
+}

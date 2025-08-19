@@ -1,0 +1,194 @@
+
+/* Este es el cambio más importante */
+.register-wrapper {
+  /* Estas 4 líneas son la clave para forzar el centrado */
+  position: fixed; /* Lo saca del flujo normal y lo fija a la ventana */
+  top: 0;
+  left: 0;
+  width: 100%; /* Ocupa el 100% del ancho de la ventana */
+  
+  /* Y estas 3 líneas hacen la magia del centrado */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;    /* Centra verticalmente */
+  
+  min-height: 100vh;      /* Ocupa toda la altura de la pantalla */
+  background-color: #f5f5f5;
+  padding: 1rem;
+}
+
+
+.register-form-card {
+  background: white;
+  width: 100%;
+  max-width: 420px;
+  padding: clamp(1.5rem, 5vw, 2.5rem);
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.register-title2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: 800;
+  font-size: clamp(1.6rem, 5vw, 2rem);
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  cursor: pointer;
+}
+
+.register-title2:hover{
+  color:rgb(58, 121, 255);
+}
+
+/* ... el resto de tu CSS permanece igual ... */
+
+/* ========================================================= */
+/* === INPUTS Y OTROS ELEMENTOS DEL FORMULARIO === */
+/* ========================================================= */
+
+.form-label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  color: #495057;
+}
+
+.input-password {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.register-correo,
+.register-contraseña {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #dee2e6;
+  background-color: #f8f9fa;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.register-correo:focus,
+.register-contraseña:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+  outline: none;
+}
+
+.input-password .register-contraseña {
+  padding-right: 3rem;
+}
+
+.register-options-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin-block: 1.5rem;
+  font-size: 0.875rem;
+}
+
+.register-submit-btn {
+  width: 100%;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  background: rgb(58, 121, 255);
+  color: white;
+  border: none;
+  transition: all 0.2s ease-in-out;
+  white-space: nowrap;
+}
+
+.register-submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.register-signup-container {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 1.5rem;
+}
+
+.register-signup-link {
+  color: #0d6efd;
+  font-weight: 500;
+}
+
+/* ========================================================= */
+/* === AJUSTE AGRESIVO PARA PANTALLAS ULTRA-ESTRECHAS === */
+/* ========================================================= */
+@media (max-width: 320px) {
+
+  /* ELIMINAMOS ESTE ESTILO PORQUE YA NO EXISTE EL DIV */
+  /* .register-form-container {
+    padding: 1.5rem 0.5rem;
+  } */
+
+  .register-form-card {
+    padding: 1rem 0.75rem;
+  }
+
+  .register-title2, /* Combinamos selectores */
+  .form-label,
+  .register-options-container,
+  .register-signup-container {
+    word-break: break-word;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+  }
+
+  .register-title2 { /* Sobreescribimos */
+    font-size: 1.2rem;
+  }
+
+  .form-label {
+    font-size: 0.75rem;
+  }
+
+  .register-correo,
+  .register-contraseña {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.8rem;
+  }
+  
+  /* Eliminamos register-password y register-text que no estaban en tu JSX */
+
+  .input-password .register-contraseña { /* Corregido */
+    padding-right: 2.2rem;
+    font-size: 0.8rem;
+  }
+
+
+  .register-options-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .register-submit-btn {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.65rem; /* Ajustado para que quepa mejor */
+    white-space: nowrap;
+    text-align: center;
+  }
+}
+
+.registro-exito-card {
+  background-color: #e6f4ea;
+  border-left: 5px solid #38c172;
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  font-size: 0.95rem;
+  color: #155724;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
