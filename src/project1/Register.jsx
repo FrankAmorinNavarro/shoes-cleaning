@@ -1,5 +1,5 @@
 
-// Importamos hooks y funciones de las librerías que necesitamos.
+
 import { useNavigate } from 'react-router-dom';        // Hook para navegar entre páginas.
 import { useState, useEffect } from 'react';          // Hooks de React para manejar estado y efectos secundarios.
 import './Register.css';                                // Hoja de estilos específica para este componente.
@@ -7,11 +7,11 @@ import Swal from 'sweetalert2';                         // Librería para mostra
 import { useAuth } from './AuthContext';                // Hook personalizado para acceder a nuestro contexto de autenticación.
 
 
-// === DEFINICIÓN DEL COMPONENTE DE REGISTRO ===
+//DEFINICIÓN DEL COMPONENTE DE REGISTRO 
 export default function Register() {
-  // === ESTADOS DEL COMPONENTE ===
-  // Aquí declaramos todas las "variables de memoria" del componente.
-  // Cada `useState` crea una variable y una función para actualizarla.
+  //ESTADOS DEL COMPONENTE
+  //Aquí declaramos todas las "variables de memoria" del componente.
+  //Cada `useState` crea una variable y una función para actualizarla.
   
   // Estados para los valores de los inputs del formulario.
   const [nombres, setNombres] = useState('');                   // G  uarda lo que el usuario escribe en el campo "Nombres".
@@ -28,22 +28,22 @@ export default function Register() {
   const [touchPassword, setTouchPassword] = useState(false);
   const [touchConfirmPassword, setTouchConfirmPassword] = useState(false);
 
-  // === HOOKS DE NAVEGACIÓN Y AUTENTICACIÓN ===
+  // HOOKS DE NAVEGACIÓN Y AUTENTICACIÓN
   const navigate = useNavigate();                       // Inicializamos el hook de navegación para poder redirigir al usuario.
   const { isLoggedIn } = useAuth();                     // Obtenemos el estado `isLoggedIn` desde nuestro AuthContext global.
 
-  // === EFECTO SECUNDARIO (useEffect) PARA PROTEGER LA RUTA ===
+  //  EFECTO SECUNDARIO (useEffect) PARA PROTEGER LA RUTA
   // Este bloque de código se ejecuta automáticamente cuando el componente se carga por primera vez
   // y cada vez que el valor de `isLoggedIn` cambia.
   useEffect(() => {
     
-    if (isLoggedIn) {  // Si detectamos que el usuario YA está logueado... lo redirigimos inmediatamente al menú principal.
+    if (isLoggedIn) {  // Si se detecta que el usuario YA está logueado, lo redirigimos inmediatamente al menú principal.
       
       navigate('/menuprincipal1', { replace: true }); //`replace: true` evita que el usuario pueda volver aquí con el botón "Atrás",
     }
   }, [isLoggedIn, navigate]); // Dependencias: El efecto se vuelve a ejecutar si `isLoggedIn` o `navigate` cambian.
 
-  // === LÓGICA DE VALIDACIÓN DEL FORMULARIO ===
+  //  LÓGICA DE VALIDACIÓN DEL FORMULARIO
   // Función auxiliar que usa una expresión regular (regex) para verificar si un texto tiene el formato de un email.
   const esEmailValido = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -61,7 +61,7 @@ export default function Register() {
     confirmPassword.trim() !== '' &&  // La confirmación de contraseña no está vacía.
     password === confirmPassword;     // Y ambas contraseñas son idénticas.
 
-  // === FUNCIÓN MANEJADORA DEL ENVÍO DEL FORMULARIO ===
+  // FUNCIÓN MANEJADORA DEL ENVÍO DEL FORMULARIO
   // Esta función se ejecuta cuando el usuario hace clic en el botón "Registrar" (de tipo submit).
   const handleRegister = (e) => {
     // `e.preventDefault()` evita el comportamiento por defecto del formulario, que es recargar la página.
@@ -78,7 +78,7 @@ export default function Register() {
       return; // El `return` detiene la ejecución de la función aquí.
     }
 
-    // Comprobamos si ya existe un usuario en localStorage con este email como clave.
+    // Se comprueba si ya existe un usuario en localStorage con este email como clave.
     if (localStorage.getItem(email)) {
       Swal.fire({ icon: 'error', title: 'Usuario existente', text: 'Ya existe una cuenta registrada con este correo.' });
       return; // Detenemos la ejecución si el usuario ya existe.
@@ -87,7 +87,7 @@ export default function Register() {
     // Si todas las validaciones pasan, creamos un objeto con los datos del nuevo usuario.
     const newUser = { nombres, apellidos, email, password };
     
-    // Guardamos el nuevo usuario en el almacenamiento local del navegador.
+    // Se guarda el nuevo usuario en el almacenamiento local del navegador.
     // Usamos el email como clave ÚNICA y el objeto `newUser` (convertido a texto JSON) como valor.
     localStorage.setItem(email, JSON.stringify(newUser));
 
@@ -100,14 +100,14 @@ export default function Register() {
       showConfirmButton: false, // Ocultamos el botón "OK".
     });
 
-    // Usamos `setTimeout` para esperar a que la alerta se muestre antes de redirigir.
+    // Se usa `setTimeout` para esperar a que la alerta se muestre antes de redirigir.
     setTimeout(() => {
       // Navegamos al usuario a la página de inicio de sesión.
       navigate('/proyecto1');
     }, 2000); // 2000 milisegundos = 2 segundos.
   };
 
-  // === RENDERIZADO DEL COMPONENTE (JSX) ===
+  // RENDERIZADO DEL COMPONENTE (JSX)
   // Aquí se define la estructura HTML que se mostrará en la pantalla.
   return (
     <div className='register-wrapper'>
@@ -134,7 +134,7 @@ export default function Register() {
               )}
             </div>
 
-            {/* --- Campo Apellidos --- */}
+            {/*  Campo Apellidos  */}
             <div className="mb-3">
               <label htmlFor="apellidos" className="form-label">Apellidos</label>
               <input
@@ -151,7 +151,7 @@ export default function Register() {
               )}
             </div>
 
-            {/* --- Campo Correo --- */}
+            {/* Campo Correo  */}
             <div className="mb-3">
               <label htmlFor="email" className="form-label">Correo</label>
               <input
@@ -173,7 +173,7 @@ export default function Register() {
               )}
             </div>
 
-            {/* --- Campo Contraseña --- */}
+            {/*  Campo Contraseña  */}
             <div className="mb-3">
               <label htmlFor="password" className="form-label">Contraseña</label>
               <input
@@ -190,7 +190,7 @@ export default function Register() {
               )}
             </div>
 
-            {/* --- Campo Confirmar Contraseña --- */}
+            {/*  Campo Confirmar Contraseña  */}
             <div className="mb-3">
               <label htmlFor="confirmPassword" className="form-label" >Confirmar contraseña</label>
               <input
@@ -211,7 +211,7 @@ export default function Register() {
               )}
             </div>
 
-            {/* --- Botón de Envío --- */}
+            {/*  Botón de Envío  */}
             <div></div>
             <button 
               type="submit" 
