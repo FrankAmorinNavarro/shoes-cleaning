@@ -4,7 +4,7 @@ import { useState } from "react";
 import './Login.css';
 import logopagina1 from '../assets/img/logopagina1.svg';
 import { useEffect } from 'react';
-import { useAuth } from './AuthContext';
+import { useAuth } from '../context/AuthContext';
 import Swal from 'sweetalert2';
 
 
@@ -39,7 +39,7 @@ export default function Login() {
     // Si el usuario ya está logueado y llega a esta página,
     // lo redirigimos inmediatamente al menú principal.
     if (isLoggedIn) {
-      navigate('/menuprincipal1', { replace: true });
+      navigate('/menuprincipal', { replace: true });
     }
   }, [isLoggedIn, navigate]); // Se ejecuta cada vez que 'isLoggedIn' o 'navigate' cambian.
 
@@ -82,7 +82,7 @@ export default function Login() {
     if (userData.password === password) {
       // ¡Éxito! Las contraseñas coinciden
       login(); // Llama a tu función de AuthContext
-      navigate('/menuprincipal1'); // Redirige al menú principal
+      navigate('/menuprincipal'); // Redirige al menú principal
     } else {
       // La contraseña es incorrecta
       Swal.fire({

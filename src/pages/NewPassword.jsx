@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './NewPassword.css';
 import Swal from 'sweetalert2';
-import { useAuth } from './AuthContext';                // Hook personalizado para acceder a nuestro contexto de autenticación.
+import { useAuth } from '../context/AuthContext';                // Hook personalizado para acceder a nuestro contexto de autenticación.
 
 
 export default function () {
@@ -26,7 +26,7 @@ export default function () {
 
         if (isLoggedIn) {  // Si detectamos que el usuario YA está logueado... lo redirigimos inmediatamente al menú principal.
 
-            navigate('/menuprincipal1', { replace: true }); //`replace: true` evita que el usuario pueda volver aquí con el botón "Atrás",
+            navigate('/menuprincipal', { replace: true }); //`replace: true` evita que el usuario pueda volver aquí con el botón "Atrás",
         }
     }, [isLoggedIn, navigate]); // Dependencias: El efecto se vuelve a ejecutar si `isLoggedIn` o `navigate` cambian.
 

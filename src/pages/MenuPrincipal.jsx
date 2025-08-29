@@ -5,7 +5,7 @@ import { FaFacebook, FaInstagram } from 'react-icons/fa';
 import cuidadoImagen from '../assets/img/logocuidados.png';
 import cleansneakers from '../assets/img/cleansneakers.jpg';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from './AuthContext';
+import { useAuth } from '../context/AuthContext';
 import Swal from 'sweetalert2';
 
 export default function MenuPrincipal() {

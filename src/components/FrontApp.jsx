@@ -1,45 +1,42 @@
-
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
 import loadable from '@loadable/component';
 
-import { AuthProvider, useAuth } from '../project1/AuthContext'; 
-import NewPassword from '../project1/NewPassword';
 
+import { AuthProvider, useAuth } from '../context/AuthContext'; 
+import ProtectedRoute from '../guards/ProtectedRoute';
 
-// Lazy load componentes de página
+// Lazy load de los componentes de página
+const Login = loadable(() => import('../pages/Login'));
+const MenuPrincipal = loadable(() => import('../pages/MenuPrincipal'));
+const Register = loadable(() => import('../pages/Register'));
+const NewPassword = loadable(() => import('../pages/NewPassword'));
 
-const Login = loadable(() => import('../project1/Login'));
-const MenuPrincipal = loadable(() => import('../project1/MenuPrincipal'));
-const Register = loadable(() => import ('../project1/Register'));
-
+const PublicRoute = () => {
+  const { isLoggedIn } = useAuth();
+  return isLoggedIn ? <Navigate to="/menuprincipal" replace /> : <Outlet />;
+};
 
 export const FrontApp = () => { 
-  
-  const ProtectedRoute = () => {
-    // ...
-  };
-
-  const PublicRoute = () => {
-    // ...
-  };
-
   return (
     
     <BrowserRouter basename="/shoes-cleaning">
       <AuthProvider>
         <Routes>
-          {/*rutas específicas para ESTA aplicación */}
+          {/* Rutas Públicas */}
           <Route element={<PublicRoute />}>
-            <Route path="/" element={<Login />} /> {/* La ruta raíz es el Login */}
+            <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/newcontraseña" element={<NewPassword/>}/>
+            <Route path="/newcontraseña" element={<NewPassword />} />
           </Route>
 
+          {/* Rutas Privadas */}
           <Route element={<ProtectedRoute />}>
             <Route path="/menuprincipal" element={<MenuPrincipal />} />
           </Route>
-          
+
+          {/* Ruta "Catch-all" para evitar páginas en blanco */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';        // Hook para navegar entr
 import { useState, useEffect } from 'react';          // Hooks de React para manejar estado y efectos secundarios.
 import './Register.css';                                // Hoja de estilos específica para este componente.
 import Swal from 'sweetalert2';                         // Librería para mostrar alertas bonitas y personalizadas.
-import { useAuth } from './AuthContext';                // Hook personalizado para acceder a nuestro contexto de autenticación.
+import { useAuth } from '../context/AuthContext';                // Hook personalizado para acceder a nuestro contexto de autenticación.
 
 
 // === DEFINICIÓN DEL COMPONENTE DE REGISTRO ===
@@ -39,7 +39,7 @@ export default function Register() {
     
     if (isLoggedIn) {  // Si detectamos que el usuario YA está logueado... lo redirigimos inmediatamente al menú principal.
       
-      navigate('/menuprincipal1', { replace: true }); //`replace: true` evita que el usuario pueda volver aquí con el botón "Atrás",
+      navigate('/', { replace: true }); //`replace: true` evita que el usuario pueda volver aquí con el botón "Atrás",
     }
   }, [isLoggedIn, navigate]); // Dependencias: El efecto se vuelve a ejecutar si `isLoggedIn` o `navigate` cambian.
 
