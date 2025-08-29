@@ -49,7 +49,7 @@ export default function MenuPrincipal() {
     // Detectar scroll y cambiar el link activo según la sección visible
     useEffect(() => {
         const handleScroll = () => {
-            // --- LÓGICA PARA EL HEADER TRANSPARENTE ---
+            // LÓGICA PARA EL HEADER TRANSPARENTE 
             if (window.scrollY > 50) {
                 setHeaderScrolled(true);
             } else {
