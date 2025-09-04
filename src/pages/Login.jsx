@@ -31,7 +31,7 @@ export default function Login() {
     navigate('/newcontraseña')
   };
 
-  const { login, isLoggedIn } = useAuth(); // ¡Añadimos isLoggedIn!
+  const { login, isLoggedIn } = useAuth(); //Añadimos isLoggedIn
 
 
 
@@ -157,7 +157,7 @@ export default function Login() {
                     <div className="input-password">
                       <input
                         type={showPassword ? "text" : "password"}
-                        className="form-control login-contraseña" // Quitamos pe-4, lo manejará el CSS
+                        className="form-control login-contraseña"
                         id="password"
                         placeholder="Ingrese su contraseña"
                         value={password}
