@@ -1,6 +1,4 @@
-/* ========================================================= */
-/* === REGLAS DE ORO GLOBALES (ESENCIALES) === */
-/* ========================================================= */
+
 *,
 *::before,
 *::after {
@@ -16,9 +14,7 @@ body {
   background-color: #f0f2f5;
 }
 
-/* ========================================================= */
-/* === ESTRUCTURA BASE DEL LAYOUT === */
-/* ========================================================= */
+/*ESTRUCTURA BASE DEL LAYOUT */
 .login-container {
   min-height: 100vh;
   width: 100%;
@@ -38,9 +34,7 @@ body {
   padding: 3rem 1.5rem;
 }
 
-/* ========================================================= */
-/* === SECCIÓN DE BIENVENIDA === */
-/* ========================================================= */
+/*SECCIÓN DE BIENVENIDA */
 .login-welcome-section {
   background: white;
   color: black;
@@ -81,9 +75,7 @@ body {
   cursor: pointer;
 }
 
-/* ========================================================= */
-/* === SECCIÓN DEL FORMULARIO === */
-/* ========================================================= */
+/* SECCIÓN DEL FORMULARIO*/
 .login-form-container {
   background: rgb(245, 245, 245);
 }
@@ -112,12 +104,7 @@ body {
   color:rgb(58, 121, 255);
 }
 
-
-
-/* ========================================================= */
-/* === INPUTS Y OTROS ELEMENTOS DEL FORMULARIO === */
-/* ========================================================= */
-
+/* INPUTS Y OTROS ELEMENTOS DEL FORMULARIO */
 .form-label {
   font-weight: 600;
   margin-bottom: 0.5rem;
@@ -219,9 +206,9 @@ body {
   cursor: pointer;
 }
 
-/* ========================================================= */
-/* === AJUSTE AGRESIVO PARA PANTALLAS ULTRA-ESTRECHAS === */
-/* ========================================================= */
+
+/* AJUSTE AGRESIVO PARA PANTALLAS ULTRA-ESTRECHAS */
+
 @media (max-width: 320px) {
 
   .login-welcome-section,
