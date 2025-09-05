@@ -7,8 +7,7 @@
 
 /*Previene el desbordamiento horizontal global */
 
-html,
-body {
+html,body{
   overflow-x: hidden;
 }
 
