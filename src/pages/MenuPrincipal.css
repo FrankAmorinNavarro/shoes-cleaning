@@ -7,10 +7,7 @@
 
 /*Previene el desbordamiento horizontal global */
 
-html,
-body {
-  overflow-x: hidden;
-}
+
 
 
 .fondo-header {
